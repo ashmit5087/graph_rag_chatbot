@@ -15,7 +15,6 @@ from graph_visualizer import draw_graph
 # ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Graph RAG Chatbot",
-    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -29,94 +28,98 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Sora', sans-serif;
-    background-color: #080c14;
-    color: #c8d8f0;
+    background-color: #3D155F;
+    color: #DF678C;
 }
-.stApp { background: linear-gradient(135deg, #080c14 0%, #0d1826 100%); }
+.stApp { background: linear-gradient(135deg, #3D155F 0%, #2a0e45 100%); }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background: #0a1020;
-    border-right: 1px solid #1e3050;
+    background: #2a0e45;
+    border-right: 1px solid #5a2080;
 }
 
 /* Chat bubbles */
 .user-bubble {
-    background: linear-gradient(135deg, #1a3a6e, #0f2248);
-    border: 1px solid #2a5298;
+    background: linear-gradient(135deg, #DF678C, #c8557a);
+    border: 1px solid #e88aaa;
     border-radius: 16px 16px 4px 16px;
     padding: 12px 16px;
     margin: 8px 0 8px 60px;
     font-size: 0.92rem;
     line-height: 1.6;
-    box-shadow: 0 2px 8px rgba(42,82,152,0.3);
+    color: #3D155F;
+    box-shadow: 0 2px 8px rgba(223,103,140,0.25);
 }
 .bot-bubble {
-    background: linear-gradient(135deg, #0f1e30, #162840);
-    border: 1px solid #1e4070;
+    background: linear-gradient(135deg, #4a1a70, #3D155F);
+    border: 1px solid #DF678C;
     border-radius: 16px 16px 16px 4px;
     padding: 12px 16px;
     margin: 8px 60px 8px 0;
     font-size: 0.92rem;
     line-height: 1.6;
-    box-shadow: 0 2px 8px rgba(15,30,50,0.5);
+    color: #f0c0d4;
+    box-shadow: 0 2px 8px rgba(61,21,95,0.5);
 }
 .bubble-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
-    opacity: 0.55;
+    opacity: 0.65;
     margin-bottom: 4px;
     letter-spacing: 0.08em;
+    color: #DF678C;
 }
 .triple-badge {
     display: inline-block;
-    background: #0a2040;
-    border: 1px solid #1a4080;
+    background: #4a1a70;
+    border: 1px solid #DF678C;
     border-radius: 8px;
     padding: 3px 10px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
     margin: 2px 3px;
-    color: #7abaff;
+    color: #DF678C;
 }
 .stat-box {
-    background: #0a1628;
-    border: 1px solid #1a3050;
+    background: #2a0e45;
+    border: 1px solid #5a2080;
     border-radius: 10px;
     padding: 10px 14px;
     text-align: center;
     margin: 4px 0;
 }
-.stat-num { font-size: 1.8rem; font-weight: 700; color: #4F8EF7; }
-.stat-label { font-size: 0.72rem; color: #6688aa; font-family: 'JetBrains Mono', monospace; }
-h1 { font-weight: 700; color: #e8f4ff; letter-spacing: -0.02em; }
+.stat-num { font-size: 1.8rem; font-weight: 700; color: #DF678C; }
+.stat-label { font-size: 0.72rem; color: #c87a9a; font-family: 'JetBrains Mono', monospace; }
+h1 { font-weight: 700; color: #DF678C; letter-spacing: -0.02em; }
 .stButton>button {
-    background: linear-gradient(135deg, #1a3a6e, #0f2248);
-    color: #c8d8f0;
-    border: 1px solid #2a5298;
+    background: linear-gradient(135deg, #DF678C, #c8557a);
+    color: #3D155F;
+    border: 1px solid #e88aaa;
     border-radius: 8px;
     font-family: 'Sora', sans-serif;
+    font-weight: 600;
     transition: all 0.2s;
 }
 .stButton>button:hover {
-    background: linear-gradient(135deg, #2a5298, #1a3a6e);
-    border-color: #4F8EF7;
-    color: #fff;
+    background: #3D155F;
+    border-color: #DF678C;
+    color: #DF678C;
 }
 .stTextInput>div>div>input, .stSelectbox>div>div {
-    background: #0a1628 !important;
-    border: 1px solid #1e3050 !important;
-    color: #c8d8f0 !important;
+    background: #2a0e45 !important;
+    border: 1px solid #5a2080 !important;
+    color: #DF678C !important;
     border-radius: 8px !important;
 }
 .section-title {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    color: #4F8EF7;
+    color: #DF678C;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 8px;
-    border-bottom: 1px solid #1e3050;
+    border-bottom: 1px solid #5a2080;
     padding-bottom: 4px;
 }
 </style>
@@ -148,7 +151,7 @@ init_session()
 # Sidebar
 # ─────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🧠 Graph RAG Chatbot")
+    st.markdown("## Graph RAG Chatbot")
     st.markdown('<div class="section-title">Configuration</div>', unsafe_allow_html=True)
 
     api_key = st.text_input(
@@ -187,7 +190,7 @@ with st.sidebar:
             else:
                 st.error("Enter API key + user ID first.")
     with col2:
-        if st.button("🗑️ Clear Graph", use_container_width=True):
+        if st.button(" Clear Graph", use_container_width=True):
             if st.session_state.memory:
                 st.session_state.memory.clear()
                 st.session_state.chat_history = []
@@ -222,11 +225,11 @@ with st.sidebar:
 # ─────────────────────────────────────────────────────────────────────────────
 # Main layout
 # ─────────────────────────────────────────────────────────────────────────────
-st.markdown("# 🧠 Graph RAG Chatbot")
+st.markdown("# Graph RAG Chatbot")
 st.caption("Tell me facts. Ask me questions. I remember everything in a knowledge graph.")
 
 tab_chat, tab_graph, tab_triples, tab_demo = st.tabs(
-    ["💬 Chat", "🕸️ Graph", "🗂️ All Triples", "🎯 Demo Examples"]
+    ["Chat", "Graph", " All Triples", " Demo Examples"]
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -258,11 +261,11 @@ with tab_chat:
                         for s, r, o in meta["triples"]
                     )
                     st.markdown(
-                        f'<div style="margin: -4px 0 8px 0; padding-left: 4px">📌 Stored: {badge_html}</div>',
+                        f'<div style="margin: -4px 0 8px 0; padding-left: 4px"> Stored: {badge_html}</div>',
                         unsafe_allow_html=True,
                     )
                 if meta.get("context_triples"):
-                    with st.expander("🔍 Graph context used", expanded=False):
+                    with st.expander(" Graph context used", expanded=False):
                         for s, r, o in meta["context_triples"]:
                             st.caption(f"• {s}  —[{r}]→  {o}")
 
@@ -270,7 +273,7 @@ with tab_chat:
 
     # Input area
     if not st.session_state.memory:
-        st.warning("⚠️ Enter your Groq API key, set a user profile, and click **Load / Switch** in the sidebar to start.")
+        st.warning(" Enter your Groq API key, set a user profile, and click **Load / Switch** in the sidebar to start.")
     else:
         with st.form("chat_form", clear_on_submit=True):
             user_input = st.text_input(
@@ -415,7 +418,7 @@ with tab_demo:
             st.code(text, language=None)
 
     st.markdown("---")
-    st.markdown("### ❓ Example queries that use the stored graph context")
+    st.markdown("###  Example queries that use the stored graph context")
 
     examples_query = [
         ("Q1", "Where does Alice work?"),
@@ -435,7 +438,7 @@ with tab_demo:
             st.code(text, language=None)
 
     st.markdown("---")
-    st.markdown("### 📝 Reflection")
+    st.markdown("###  Reflection")
     st.markdown("""
 **What the pipeline handles well and where it breaks:**
 
